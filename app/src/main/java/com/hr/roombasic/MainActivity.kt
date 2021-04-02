@@ -16,10 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        wordDatabase = Room.databaseBuilder(application, WordDatabase::class.java, "word_database")
-            .allowMainThreadQueries()
-            .build()
+        //单例生成数据库
+        wordDatabase = WordDatabase.getInstance(this)
         wordDao = wordDatabase.getWordDao()
         allWordsLive = wordDao.getAllWordsLive()
 
