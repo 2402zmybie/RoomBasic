@@ -20,6 +20,9 @@ class Word2{
 //    var bar:Boolean = false
     //---------------2 删除列 作为数据库的迁移(3-4)
 
+    @ColumnInfo(name = "chinese_invisible")
+    var chineseInvisible:Boolean = false
+
     constructor(word: String?, chineseMeaning: String?) {
         this.word = word
         this.chineseMeaning = chineseMeaning

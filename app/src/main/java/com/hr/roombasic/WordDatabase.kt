@@ -7,11 +7,19 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Word2::class], version = 4, exportSchema = false)
+@Database(entities = [Word2::class], version = 5, exportSchema = false)
 abstract class  WordDatabase: RoomDatabase() {
 
     companion object {
         private var instance:WordDatabase? = null
+
+
+        private val MIGRATION_4_5:Migration = object :Migration(4,5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE word2 ADD COLUMN chinese_invisible INTEGER NOT NULL DEFAULT 0")
+            }
+
+        }
 
         //数据库新增字段的更新
         private val MIGRATION_2_3:Migration = object :Migration(2,3) {
@@ -48,7 +56,8 @@ abstract class  WordDatabase: RoomDatabase() {
                                 //增量更新,添加字段
 //                            .addMigrations(MIGRATION_2_3)
                                 //删除列,并保留数据
-                            .addMigrations(MIGRATION_3_4)
+//                            .addMigrations(MIGRATION_3_4)
+                            .addMigrations(MIGRATION_4_5)
                             .build()
                     }
                 }
