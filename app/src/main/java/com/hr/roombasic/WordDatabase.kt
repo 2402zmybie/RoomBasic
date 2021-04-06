@@ -14,7 +14,8 @@ abstract class  WordDatabase: RoomDatabase() {
                 synchronized(WordDatabase::class) {
                     if(instance == null) {
                         instance = Room.databaseBuilder(context.applicationContext, WordDatabase::class.java, "word_database")
-                            .allowMainThreadQueries()
+                                //强制在主线程执行
+//                            .allowMainThreadQueries()
                             .build()
                     }
                 }
