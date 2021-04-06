@@ -12,6 +12,13 @@ class Word2{
     var word:String? = null
     @ColumnInfo(name = "chinese_meaning")
     var chineseMeaning:String?=null
+    //---------------2 删除列 作为数据库的迁移(3-4)
+//    @ColumnInfo(name = "foo_data")
+//    var foo:Boolean = false
+//    //1 新增列 作为数据库的迁移(2-3)
+//    @ColumnInfo(name = "bar_data")
+//    var bar:Boolean = false
+    //---------------2 删除列 作为数据库的迁移(3-4)
 
     constructor(word: String?, chineseMeaning: String?) {
         this.word = word
