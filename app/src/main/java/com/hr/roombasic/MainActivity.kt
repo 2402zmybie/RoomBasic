@@ -1,10 +1,8 @@
 package com.hr.roombasic
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.LiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+        wordViewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application)).get(WordViewModel::class.java)
 
         //数据发生变化界面自动刷新
         wordViewModel.allWordsLive.observe(this,
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonUpdate.setOnClickListener {
             val word2 = Word2("hi", "你好啊")
-            word2.id = 1
+            word2.id = 30
             wordViewModel.updatetWords(word2)
         }
 
