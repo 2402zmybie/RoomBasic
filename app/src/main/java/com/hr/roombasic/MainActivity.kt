@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         wordViewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application)).get(WordViewModel::class.java)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        myAdapter = MyAdapter(false)
-        myAdapterCard = MyAdapter(true)
+        myAdapter = MyAdapter(false, wordViewModel)
+        myAdapterCard = MyAdapter(true, wordViewModel)
         recyclerView.adapter = myAdapter
 
         switch1.setOnCheckedChangeListener { compoundButton, b ->
@@ -32,16 +32,14 @@ class MainActivity : AppCompatActivity() {
         //数据发生变化界面自动刷新
         wordViewModel.allWordsLive.observe(this,
             Observer<List<Word2>> {words ->
-//                val stringBuilder = StringBuilder()
-//                words.forEach {
-//                    stringBuilder.append("${it.id} : ${it.word} = ${it.chineseMeaning} \n")
-//                }
-//                textView.text = stringBuilder.toString()
+                val temp = myAdapter.itemCount
                 myAdapter.allWords = words
-                myAdapter.notifyDataSetChanged()
-
                 myAdapterCard.allWords = words
-                myAdapterCard.notifyDataSetChanged()
+                //避免switch切换导致视图的刷新
+                if(temp != words.size) {
+                    myAdapter.notifyDataSetChanged()
+                    myAdapterCard.notifyDataSetChanged()
+                }
             }
         )
 
