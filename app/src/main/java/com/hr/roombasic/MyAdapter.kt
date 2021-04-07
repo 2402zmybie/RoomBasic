@@ -20,7 +20,7 @@ class MyAdapter(var useCardView: Boolean,var wordViewModel: WordViewModel) : Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         //kotlin没有三元表达式
-        val itemView = if(useCardView) LayoutInflater.from(parent.context).inflate(R.layout.cell_card,parent,false) else LayoutInflater.from(parent.context).inflate(R.layout.cell_normal_2,parent,false)
+        val itemView = if(useCardView) LayoutInflater.from(parent.context).inflate(R.layout.cell_card_2,parent,false) else LayoutInflater.from(parent.context).inflate(R.layout.cell_normal_2,parent,false)
         return MyViewHolder(itemView)
     }
 
